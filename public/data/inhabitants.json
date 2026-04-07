@@ -1,0 +1,207 @@
+[
+  {
+    "id": "eidolic",
+    "name": "Eidolic",
+    "aliases": ["Eidolics"],
+    "examples": ["Aliens", "Angelics", "Archfey", "Deities", "Extraplanars"],
+    "default_lore": ["Aether"],
+    "secondary_lore_options": ["Arcane", "Forbidden"],
+    "attribute_lean": { "body": 0, "mind": 1, "will": 1 },
+    "suggested_chassis": ["caster", "warrior", "striker"],
+    "passive_tendency_tags": [
+      "supernatural",
+      "outsider",
+      "resistance_package_candidate"
+    ],
+    "spellcasting_affinity": "high",
+    "notes": "Often supernatural or planar in origin. Common source for hybrid or full caster designs.",
+    "vitality_multiplier": 1.05,
+    "defense_modifier": 0.5,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 1.05,
+      "defense_modifier": 0.5
+    }
+  },
+  {
+    "id": "forged",
+    "name": "Forged",
+    "aliases": ["Forgecast", "Construct"],
+    "examples": ["Golem", "Animated Armor", "Forgecast", "Homunculus"],
+    "default_lore": ["Arcane"],
+    "secondary_lore_options": ["Aether", "Forbidden"],
+    "attribute_lean": { "body": 1, "mind": -1, "will": 0 },
+    "suggested_chassis": ["tank", "warrior", "bruiser"],
+    "passive_tendency_tags": [
+      "constructed",
+      "armor_lean",
+      "poison_resistance_candidate"
+    ],
+    "spellcasting_affinity": "medium",
+    "notes": "Usually durable and body-focused. Good fit for tank or bruiser roles.",
+    "vitality_multiplier": 0.9,
+    "defense_modifier": 1.0,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 0.9,
+      "defense_modifier": 1.0
+    }
+  },
+  {
+    "id": "deathless",
+    "name": "Deathless",
+    "aliases": ["Undead"],
+    "examples": ["Banshees", "Skeletons", "Wraiths", "Zombies"],
+    "default_lore": ["Forbidden"],
+    "secondary_lore_options": ["Aether"],
+    "attribute_lean": { "body": 0, "mind": -1, "will": 0 },
+    "suggested_chassis": ["tank", "bruiser", "caster"],
+    "passive_tendency_tags": [
+      "undead",
+      "condition_immunity_candidate",
+      "life_sense_candidate"
+    ],
+    "spellcasting_affinity": "medium",
+    "notes": "Frequently paired with immunities and thematic weaknesses.",
+    "vitality_multiplier": 1.1,
+    "defense_modifier": 0.0,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 1.1,
+      "defense_modifier": 0.0
+    }
+  },
+  {
+    "id": "mortal",
+    "name": "Mortal",
+    "aliases": ["Mortals", "Humanoid"],
+    "examples": ["Dwarves", "Elves", "Halflings", "Humans", "Orcs"],
+    "default_lore": ["Mortal"],
+    "secondary_lore_options": ["Nature", "Arcane", "Aether"],
+    "attribute_lean": { "body": 0, "mind": 0, "will": 0 },
+    "suggested_chassis": ["warrior", "skirmisher", "caster", "tank", "striker"],
+    "passive_tendency_tags": ["gear_user", "skill_user", "tactical"],
+    "spellcasting_affinity": "high",
+    "notes": "Most flexible inhabitant type. Best baseline for equipment- and skill-driven NPCs.",
+    "vitality_multiplier": 1.0,
+    "defense_modifier": 0.0,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 1.0,
+      "defense_modifier": 0.0
+    }
+  },
+  {
+    "id": "monstrosity",
+    "name": "Monstrosity",
+    "aliases": ["Monstrosities"],
+    "examples": ["Chimeras", "Cyclopes", "Goblins", "Ogres", "Lycanthropes"],
+    "default_lore": ["Arcane"],
+    "secondary_lore_options": ["Nature", "Forbidden", "Mortal"],
+    "attribute_lean": { "body": 1, "mind": 0, "will": 0 },
+    "suggested_chassis": ["bruiser", "striker", "warrior"],
+    "passive_tendency_tags": [
+      "unusual_attack",
+      "mutation_candidate",
+      "hybrid_classification_candidate"
+    ],
+    "spellcasting_affinity": "medium",
+    "notes": "Flexible hostile creature family; often defined by one exaggerated feature.",
+    "vitality_multiplier": 1.05,
+    "defense_modifier": 0.0,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 1.05,
+      "defense_modifier": 0.0
+    }
+  },
+  {
+    "id": "occult",
+    "name": "Occult",
+    "aliases": ["Occults"],
+    "examples": [
+      "Demons",
+      "Eldritch Beings",
+      "Flayers of Minds",
+      "Vampires",
+      "Watchers"
+    ],
+    "default_lore": ["Forbidden"],
+    "secondary_lore_options": ["Aether", "Arcane"],
+    "attribute_lean": { "body": 0, "mind": 1, "will": 1 },
+    "suggested_chassis": ["caster", "striker", "skirmisher"],
+    "passive_tendency_tags": ["curse", "control", "fear", "psychic"],
+    "spellcasting_affinity": "high",
+    "notes": "Excellent chassis candidate for control-heavy or spell-driven enemies.",
+    "vitality_multiplier": 0.95,
+    "defense_modifier": 0.0,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 0.95,
+      "defense_modifier": 0.0
+    }
+  },
+  {
+    "id": "primordial",
+    "name": "Primordial",
+    "aliases": ["Primordials"],
+    "examples": ["Djinn", "Elementals", "Nymphs", "Treants"],
+    "default_lore": ["Nature"],
+    "secondary_lore_options": ["Aether", "Arcane"],
+    "attribute_lean": { "body": 1, "mind": 0, "will": 1 },
+    "suggested_chassis": ["tank", "caster", "bruiser"],
+    "passive_tendency_tags": [
+      "environmental_affinity",
+      "elemental",
+      "terrain_interaction"
+    ],
+    "spellcasting_affinity": "high",
+    "notes": "Commonly expresses environmental or elemental identity.",
+    "vitality_multiplier": 1.05,
+    "defense_modifier": 1.0,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 1.05,
+      "defense_modifier": 1.0
+    }
+  },
+  {
+    "id": "wildlife",
+    "name": "Wildlife",
+    "aliases": ["Beast", "Beasts"],
+    "examples": ["Deer", "Elk", "Griffons", "Lions", "Wolves", "Wargs"],
+    "default_lore": ["Nature"],
+    "secondary_lore_options": ["Arcane", "Mortal"],
+    "attribute_lean": { "body": 1, "mind": -1, "will": 0 },
+    "suggested_chassis": ["striker", "skirmisher", "bruiser"],
+    "passive_tendency_tags": [
+      "beast",
+      "pack_hunter_candidate",
+      "movement_ability_candidate"
+    ],
+    "spellcasting_affinity": "low",
+    "notes": "Strong candidate for pounce, trip, charge, pack-hunter, or mobility packages.",
+    "vitality_multiplier": 1.0,
+    "defense_modifier": -0.5,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 1.0,
+      "defense_modifier": -0.5
+    }
+  },
+  {
+    "id": "wyrm",
+    "name": "Wyrm",
+    "aliases": ["Wyrms", "Wrym"],
+    "examples": ["Basilisks", "Dragons", "Drakes", "Hydras", "Wyverns"],
+    "default_lore": ["Nature"],
+    "secondary_lore_options": ["Arcane", "Aether", "Forbidden"],
+    "attribute_lean": { "body": 1, "mind": 0, "will": 1 },
+    "suggested_chassis": ["bruiser", "tank", "caster"],
+    "passive_tendency_tags": [
+      "apex",
+      "breath_weapon_candidate",
+      "multi_target_pressure"
+    ],
+    "spellcasting_affinity": "medium",
+    "notes": "Apex-class creature family. Often combines durability, area pressure, and signature actions.",
+    "vitality_multiplier": 1.15,
+    "defense_modifier": 1.0,
+    "combat_profile_adjustment": {
+      "vitality_multiplier": 1.15,
+      "defense_modifier": 1.0
+    }
+  }
+]

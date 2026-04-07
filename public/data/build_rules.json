@@ -1,0 +1,46 @@
+{
+  "secondary_inhabitant_allowed": true,
+
+  "full_caster_allowed_chassis": ["caster"],
+  "hybrid_caster_allowed_chassis": [
+    "warrior",
+    "tank",
+    "striker",
+    "skirmisher",
+    "caster",
+    "bruiser"
+  ],
+  "chassis_attribute_modifiers_enabled": true,
+  "chassis_attribute_modifier_mode": "flat_modifier_shift",
+  "chassis_attribute_application_order": "after_tier_baseline_and_inhabitant_adjustments_before_overlays",
+  "caster_dynamic_stat_bonus": 2,
+  "caster_fallback_attribute": "mind",
+  "secondary_inhabitant_numeric_weight": 0.5,
+  "final_defense_rounding_mode": "nearest_integer",
+  "inhabitant_vitality_combination_mode": "delta_addition_from_one",
+  "inhabitant_defense_combination_mode": "sum_then_round_final",
+  "inhabitant_vitality_formula_note": "Final vitality multiplier = 1 + sum((inhabitant.vitality_multiplier - 1) * weight). Primary weight 1.0, secondary weight from secondary_inhabitant_numeric_weight.",
+  "inhabitant_defense_formula_note": "Final defense modifier = sum(inhabitant.defense_modifier * weight). Round only after all modifiers are combined.",
+  "inhabitant_combat_adjustments_enabled": true,
+  "inhabitant_adjustment_application_order": "after_tier_baseline_before_chassis_before_overlays",
+  "horde_requires_shared_base_stat_block": true,
+  "horde_requires_same_tier": true,
+  "horde_defense_scales": false,
+  "horde_min_size": 1,
+  "minion_default_action_points": 1,
+  "minion_default_adversarial_actions": 0,
+  "summoned_horde_default_action_points": 2,
+  "lore_dc_formula": "10 + (tier * 2)",
+  "default_damage_label_mode": "Armor",
+  "legacy_output_stat_aliases": ["Armor", "Defense"],
+  "notes": [
+    "Treat tier as the primary baseline power budget.",
+    "Inhabitant type defines identity, not the majority of combat math.",
+    "Chassis defines how the NPC fights.",
+    "Trait overlays modify encounter role after the base build is assembled.",
+    "Apply chassis attribute modifiers as flat shifts to the generated Body, Mind, and Will modifiers.",
+    "Caster chassis should place its dynamic bonus on the selected spellcasting attribute.",
+    "Primary inhabitant uses full numeric effect. Secondary uses secondary_inhabitant_numeric_weight.",
+    "Apply inhabitant vitality modifiers before chassis multipliers; sum defense modifiers before final rounding."
+  ]
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "none",
+    "name": "None",
+    "allowed_chassis": ["warrior","tank","striker","skirmisher","caster","bruiser"],
+    "max_spell_rank_delta_from_tier": null,
+    "offensive_spell_limit": 0,
+    "known_spell_budget": "none",
+    "notes": "No spellcasting package applied."
+  },
+  {
+    "id": "hybrid",
+    "name": "Hybrid",
+    "allowed_chassis": ["warrior","tank","striker","skirmisher","caster","bruiser"],
+    "max_spell_rank_delta_from_tier": -1,
+    "offensive_spell_limit": 1,
+    "known_spell_budget": "limited",
+    "notes": "Reduced spell access. Intended for mobility, buffs, utility, or one signature attack spell."
+  },
+  {
+    "id": "full",
+    "name": "Full",
+    "allowed_chassis": ["caster"],
+    "max_spell_rank_delta_from_tier": 0,
+    "offensive_spell_limit": null,
+    "known_spell_budget": "full",
+    "notes": "Primary full-caster mode. Intended only for the Caster chassis."
+  }
+]

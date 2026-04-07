@@ -1,0 +1,54 @@
+[
+  {
+    "id": "none",
+    "name": "None",
+    "enabled_by_default": true,
+    "vitality_multiplier": 0.75,
+    "defense_modifier": 0,
+    "attack_modifier": 0,
+    "damage_step_modifier": 0,
+    "action_point_modifier": 0,
+    "adversarial_actions_bonus": 0,
+    "special_rules": [],
+    "notes": "Base creature with no encounter-role overlay."
+  },
+  {
+    "id": "elite",
+    "name": "Elite",
+    "enabled_by_default": true,
+    "vitality_multiplier": 1.15,
+    "defense_modifier": 1,
+    "attack_modifier": 1,
+    "damage_step_modifier": 0,
+    "action_point_modifier": 0,
+    "adversarial_actions_bonus": 1,
+    "special_rules": ["extra_signature_ability"],
+    "notes": "Upgraded version of a standard creature."
+  },
+  {
+    "id": "minion",
+    "name": "Minion",
+    "enabled_by_default": true,
+    "vitality_multiplier": 0.45,
+    "defense_modifier": 0,
+    "attack_modifier": 0,
+    "damage_step_modifier": 0,
+    "action_point_override": 1,
+    "adversarial_actions_override": 0,
+    "special_rules": ["keep_accuracy_relevant", "intended_for_numbers"],
+    "notes": "Low-durability version of a creature intended to remain threatening through action count."
+  },
+  {
+    "id": "horde",
+    "name": "Horde",
+    "enabled_by_default": true,
+    "vitality_multiplier": 1.0,
+    "defense_modifier": 0,
+    "attack_modifier": 0,
+    "damage_step_modifier": 0,
+    "action_point_modifier": 0,
+    "adversarial_actions_bonus": 0,
+    "special_rules": ["see_horde_table", "shared_stat_block_required"],
+    "notes": "Wrapper overlay for multiple identical creatures acting as one entity."
+  }
+]

@@ -1,0 +1,7 @@
+[
+  { "id": "arcane",   "name": "Arcane",   "governing_modifier": "Intellect",       "examples": ["magical knowledge", "mystical creatures", "enchantments"] },
+  { "id": "forbidden","name": "Forbidden","governing_modifier": "Essence",         "examples": ["occult knowledge", "dark arts", "taboo subjects"] },
+  { "id": "nature",   "name": "Nature",   "governing_modifier": "Wisdom",          "examples": ["beasts", "wilderness creatures", "natural phenomena"] },
+  { "id": "aether",   "name": "Aether",   "governing_modifier": "Wisdom",          "examples": ["divine beings", "religious entities", "celestial and infernal beings"] },
+  { "id": "mortal",   "name": "Mortal",   "governing_modifier": "Wisdom/Intellect","examples": ["humanoid societies", "cultures", "common knowledge"] }
+]

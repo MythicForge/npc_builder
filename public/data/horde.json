@@ -1,0 +1,21 @@
+{
+  "id": "horde_rules",
+  "name": "Horde",
+  "description": "Multiple identical creatures acting as a single entity.",
+  "global_rules": {
+    "defense_scales_with_size": false,
+    "shared_stat_block": true,
+    "total_vitality_split_into_units_equal_to_horde_size": true,
+    "unit_loss_reduces_horde_size": true,
+    "aoe_damage_applies_per_unit_hit": true,
+    "summoned_hordes_default_ap": 2
+  },
+  "size_table": [
+    { "size_key": "1", "size_min": 1, "size_max": 1, "vitality_bonus_dice_per_tier": null, "damage_bonus": "\u2014", "targets_per_strike": 1 },
+    { "size_key": "2", "size_min": 2, "size_max": 2, "vitality_bonus_dice_per_tier": "2d4",  "damage_bonus": "+1d4", "targets_per_strike": 1 },
+    { "size_key": "3", "size_min": 3, "size_max": 3, "vitality_bonus_dice_per_tier": "2d6",  "damage_bonus": "+1d4", "targets_per_strike": 2 },
+    { "size_key": "4", "size_min": 4, "size_max": 4, "vitality_bonus_dice_per_tier": "3d6",  "damage_bonus": "+2d4", "targets_per_strike": 2 },
+    { "size_key": "5", "size_min": 5, "size_max": 5, "vitality_bonus_dice_per_tier": "3d6",  "damage_bonus": "+2d4", "targets_per_strike": 3 },
+    { "size_key": "6+", "size_min": 6, "size_max": null, "vitality_bonus_dice_per_tier": "3d8", "damage_bonus": "+3d4", "targets_per_strike": 3 }
+  ]
+}

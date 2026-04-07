@@ -1,0 +1,9 @@
+[
+  { "id": "tiny",     "name": "Tiny" },
+  { "id": "small",    "name": "Small" },
+  { "id": "medium",   "name": "Medium" },
+  { "id": "large",    "name": "Large" },
+  { "id": "huge",     "name": "Huge" },
+  { "id": "enormous", "name": "Enormous" },
+  { "id": "colossal", "name": "Colossal" }
+]

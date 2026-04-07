@@ -1,0 +1,120 @@
+[
+  {
+    "tier": 0,
+    "primary_mod_range": { "min": 2, "max": 4 },
+    "defense_range": { "min": 10, "max": 14 },
+    "vitality_range": { "min": 6, "max": 15 },
+    "attack_bonus_range": { "min": 2, "max": 4 },
+    "damage_profile": { "low": "1d4", "standard": "1d6", "high": "1d8" },
+    "lore_dc": 10,
+    "recommended_primary_mod": 3,
+    "recommended_defense": 12,
+    "recommended_vitality": 10,
+    "recommended_attack_bonus": 3,
+    "notes": "Mundane baseline. Many rabble and wildlife creatures live here."
+  },
+  {
+    "tier": 1,
+    "primary_mod_range": { "min": 4, "max": 5 },
+    "defense_range": { "min": 12, "max": 16 },
+    "vitality_range": { "min": 15, "max": 34 },
+    "attack_bonus_range": { "min": 4, "max": 5 },
+    "damage_profile": { "low": "1d6", "standard": "1d8", "high": "1d10" },
+    "lore_dc": 12,
+    "recommended_primary_mod": 4,
+    "recommended_defense": 14,
+    "recommended_vitality": 24,
+    "recommended_attack_bonus": 5,
+    "notes": "Low heroic / dangerous mundane threats."
+  },
+  {
+    "tier": 2,
+    "primary_mod_range": { "min": 6, "max": 7 },
+    "defense_range": { "min": 16, "max": 20 },
+    "vitality_range": { "min": 25, "max": 50 },
+    "attack_bonus_range": { "min": 6, "max": 10 },
+    "damage_profile": { "low": "2d8", "standard": "2d10", "high": "3d6+12" },
+    "lore_dc": 14,
+    "recommended_primary_mod": 6,
+    "recommended_defense": 18,
+    "recommended_vitality": 40,
+    "recommended_attack_bonus": 8,
+
+    "notes": "Magic threshold begins here."
+  },
+  {
+    "tier": 3,
+    "primary_mod_range": { "min": 8, "max": 10 },
+    "defense_range": { "min": 18, "max": 24 },
+    "vitality_range": { "min": 45, "max": 75 },
+    "attack_bonus_range": { "min": 8, "max": 11 },
+    "damage_profile": { "low": "2d10", "standard": "3d8", "high": "3d10" },
+    "lore_dc": 16,
+    "recommended_primary_mod": 9,
+    "recommended_defense": 21,
+    "recommended_vitality": 55,
+    "recommended_attack_bonus": 10,
+
+    "notes": "Mid-tier threats."
+  },
+  {
+    "tier": 4,
+    "primary_mod_range": { "min": 10, "max": 12 },
+    "defense_range": { "min": 24, "max": 27 },
+    "vitality_range": { "min": 60, "max": 100 },
+    "attack_bonus_range": { "min": 10, "max": 13 },
+    "damage_profile": { "low": "3d8", "standard": "4d6", "high": "4d8" },
+    "lore_dc": 18,
+    "recommended_primary_mod": 11,
+    "recommended_defense": 25,
+    "recommended_vitality": 75,
+    "recommended_attack_bonus": 12,
+
+    "notes": "High-power encounters."
+  },
+  {
+    "tier": 5,
+    "primary_mod_range": { "min": 13, "max": 15 },
+    "defense_range": { "min": 27, "max": 30 },
+    "vitality_range": { "min": 90, "max": 150 },
+    "attack_bonus_range": { "min": 13, "max": 17 },
+    "damage_profile": { "low": "4d8", "standard": "4d10", "high": "5d8" },
+    "lore_dc": 20,
+    "recommended_primary_mod": 14,
+    "recommended_defense": 29,
+    "recommended_vitality": 100,
+    "recommended_attack_bonus": 15,
+
+    "notes": "Epic-tier encounter math."
+  },
+  {
+    "tier": 6,
+    "primary_mod_range": { "min": 15, "max": 18 },
+    "defense_range": { "min": 30, "max": 33 },
+    "vitality_range": { "min": 120, "max": 200 },
+    "attack_bonus_range": { "min": 17, "max": 20 },
+    "damage_profile": { "low": "5d8", "standard": "5d10", "high": "6d8" },
+    "lore_dc": 22,
+    "recommended_primary_mod": 16,
+    "recommended_defense": 31,
+    "recommended_vitality": 155,
+    "recommended_attack_bonus": 18,
+
+    "notes": "Very high-power monsters and boss threats."
+  },
+  {
+    "tier": 7,
+    "primary_mod_range": { "min": 18, "max": null, "open_ended": true },
+    "defense_range": { "min": 33, "max": 36 },
+    "vitality_range": { "min": 165, "max": 300, "open_ended": true },
+    "attack_bonus_range": { "min": 20, "max": 23 },
+    "damage_profile": { "low": "6d10", "standard": "6d12", "high": "7d10" },
+    "lore_dc": 24,
+    "recommended_primary_mod": 18,
+    "recommended_defense": 35,
+    "recommended_vitality": 175,
+    "recommended_attack_bonus": 22,
+
+    "notes": "Capstone / apex encounter scale."
+  }
+]
