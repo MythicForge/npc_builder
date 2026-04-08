@@ -13,6 +13,7 @@ import type {
   InhabitantData,
   OverlayData,
   SizeData,
+  DamageProfileEntry,
 } from "@/types/data";
 import { cn } from "@/lib/utils";
 
@@ -217,6 +218,7 @@ export default function NPCBuilderPage() {
               inhabitants={data.inhabitants as InhabitantData[]}
               overlays={data.overlays as OverlayData[]}
               sizes={data.sizes as SizeData[]}
+              damageProfiles={data.damageProfiles as DamageProfileEntry[]}
             />
           </div>
 

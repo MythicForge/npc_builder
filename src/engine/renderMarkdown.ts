@@ -33,8 +33,9 @@ export function renderMarkdown(npc: NpcResult): string {
   if (npc.attacks.length > 0) {
     npc.attacks.forEach((atk) => {
       const notePart = atk.notes ? ` *(${atk.notes})*` : '';
+      const damagePart = atk.damageType ? `${atk.damage} **${atk.damageType}**` : atk.damage;
       lines.push(
-        `**${atk.name}** ${modStr(atk.attackBonus)}, ${atk.damage} **${atk.damageType}**, ${atk.range}${notePart}`
+        `**${atk.name}** ${modStr(atk.attackBonus)}, ${damagePart}, ${atk.range}${notePart}`
       );
     });
     lines.push('');

@@ -22,7 +22,7 @@ export interface Attack {
   name: string;
   attackBonus: number;
   damage: string;
-  damageType: string;
+  damageType?: string;
   range: string;
   notes?: string;
 }

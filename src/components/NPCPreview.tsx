@@ -101,10 +101,10 @@ export function NPCPreview({ npc }: NPCPreviewProps) {
             <div key={atk.id} className="flex flex-wrap items-baseline gap-2 text-[12px] font-mono mb-1.5">
               <span className="text-accent font-medium">{atk.name}</span>
               <span className="text-green-300">{modStr(atk.attackBonus)}</span>
-              <span className="text-foreground">{atk.damage}</span>
-              <span className="text-muted-foreground text-[11px]">
-                {atk.damageType} · {atk.range}
+              <span className="text-foreground">
+                {atk.damage}{atk.damageType ? ` ${atk.damageType}` : ''}
               </span>
+              <span className="text-muted-foreground text-[11px]">{atk.range}</span>
               {atk.notes && (
                 <span className="text-muted-foreground/70 text-[11px] italic">{atk.notes}</span>
               )}

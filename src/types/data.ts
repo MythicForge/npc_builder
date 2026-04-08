@@ -118,6 +118,7 @@ export interface DamageProfileEntry {
   light: string;
   standard: string;
   heavy: string;
+  dualtypes: string;
 }
 
 export interface BuildRules {

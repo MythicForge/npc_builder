@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import type { BuildConfig, Attack, Trait, AdversarialAction, SpellEntry } from '@/types/npc';
-import type { TierData, ChassisData, InhabitantData, OverlayData, SizeData } from '@/types/data';
+import type { TierData, ChassisData, InhabitantData, OverlayData, SizeData, DamageProfileEntry } from '@/types/data';
 import { useState } from 'react';
 
 interface BuilderFormProps {
@@ -13,6 +13,7 @@ interface BuilderFormProps {
   inhabitants: InhabitantData[];
   overlays: OverlayData[];
   sizes: SizeData[];
+  damageProfiles: DamageProfileEntry[];
 }
 
 function SectionHead({
@@ -40,6 +41,8 @@ function SectionHead({
   );
 }
 
+const RANGE_OPTIONS = ['Melee', 'Close', 'Nearby', 'Far'] as const;
+
 export function BuilderForm({
   config,
   onChange,
@@ -48,6 +51,7 @@ export function BuilderForm({
   inhabitants,
   overlays,
   sizes,
+  damageProfiles,
 }: BuilderFormProps) {
   const [openSections, setOpenSections] = useState({
     identity: true,
@@ -75,12 +79,13 @@ export function BuilderForm({
   // Attack management
   function addAttack() {
     const id = crypto.randomUUID();
+    const tierProfile = damageProfiles.find((p) => p.tier === config.tier);
+    const defaultDamage = tierProfile ? `${tierProfile.standard} slashing` : '1d6 slashing';
     const newAttack: Attack = {
       id,
       name: 'New Attack',
       attackBonus: config.tier + 2,
-      damage: '1d8',
-      damageType: 'Slash',
+      damage: defaultDamage,
       range: 'Melee',
       notes: '',
     };
@@ -445,7 +450,10 @@ export function BuilderForm({
                     + Add
                   </button>
                 </div>
-                {(config.customAttacks ?? []).map((atk, idx) => (
+                {(config.customAttacks ?? []).map((atk, idx) => {
+                  const tierProfile = damageProfiles.find((p) => p.tier === config.tier);
+                  const listId = `dmg-profiles-${atk.id}`;
+                  return (
                   <div
                     key={atk.id}
                     className="mb-2 p-2 bg-surface/50 border border-border/30 rounded space-y-1.5"
@@ -470,32 +478,42 @@ export function BuilderForm({
                       </div>
                     </div>
                     <div className="grid grid-cols-3 gap-1.5">
-                      <div>
+                      <div className="col-span-2">
                         <label className="block text-[10px] text-muted-foreground mb-0.5">Damage</label>
                         <input
                           className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
                           value={atk.damage}
+                          list={listId}
                           onChange={(e) => updateAttack(idx, { damage: e.target.value })}
-                          placeholder="2d8+4"
+                          placeholder="e.g. 1d8 slashing"
                         />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] text-muted-foreground mb-0.5">Type</label>
-                        <input
-                          className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
-                          value={atk.damageType}
-                          onChange={(e) => updateAttack(idx, { damageType: e.target.value })}
-                          placeholder="Slash"
-                        />
+                        <datalist id={listId}>
+                          {tierProfile && (
+                            <>
+                              <option value={tierProfile.light} />
+                              <option value={tierProfile.standard} />
+                              <option value={tierProfile.heavy} />
+                              <option value={tierProfile.dualtypes} />
+                            </>
+                          )}
+                        </datalist>
+                        {tierProfile && (
+                          <p className="text-[9px] text-muted-foreground/60 mt-0.5 leading-tight">
+                            T{config.tier}: {tierProfile.light} · {tierProfile.standard} · {tierProfile.heavy} · {tierProfile.dualtypes}
+                          </p>
+                        )}
                       </div>
                       <div>
                         <label className="block text-[10px] text-muted-foreground mb-0.5">Range</label>
-                        <input
-                          className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
+                        <select
+                          className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent appearance-none cursor-pointer"
                           value={atk.range}
                           onChange={(e) => updateAttack(idx, { range: e.target.value })}
-                          placeholder="Melee"
-                        />
+                        >
+                          {RANGE_OPTIONS.map((r) => (
+                            <option key={r} value={r}>{r}</option>
+                          ))}
+                        </select>
                       </div>
                     </div>
                     <div>
@@ -516,7 +534,8 @@ export function BuilderForm({
                       </div>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Passive Traits */}
