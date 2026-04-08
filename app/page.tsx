@@ -118,6 +118,8 @@ export default function NPCBuilderPage() {
     null,
   );
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [leftPanelWidth, setLeftPanelWidth] = useState(288); // w-72 = 288px
+  const [isDragging, setIsDragging] = useState(false);
 
   // Load JSON data once on mount
   useEffect(() => {
@@ -136,6 +138,30 @@ export default function NPCBuilderPage() {
       console.error("[NPC Builder] Engine error:", e);
     }
   }, [config, data]);
+
+  // Handle panel resize
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const minWidth = 240; // Minimum panel width
+      const maxWidth = window.innerWidth * 0.6; // Max 60% of window
+      const newWidth = Math.max(minWidth, Math.min(maxWidth, e.clientX));
+      setLeftPanelWidth(newWidth);
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging]);
 
   const handleReset = useCallback(() => {
     setConfig(DEFAULT_CONFIG);
@@ -209,7 +235,10 @@ export default function NPCBuilderPage() {
       {tab === "builder" && (
         <div className="flex flex-1 overflow-hidden">
           {/* Left panel */}
-          <div className="w-72 shrink-0 border-r border-border/30 bg-surface overflow-hidden flex flex-col">
+          <div
+            style={{ width: `${leftPanelWidth}px` }}
+            className="shrink-0 bg-surface overflow-hidden flex flex-col"
+          >
             <BuilderForm
               config={config}
               onChange={setConfig}
@@ -221,6 +250,15 @@ export default function NPCBuilderPage() {
               damageProfiles={data.damageProfiles as DamageProfileEntry[]}
             />
           </div>
+
+          {/* Resizable divider */}
+          <div
+            onMouseDown={() => setIsDragging(true)}
+            className={cn(
+              "w-1 bg-border/30 hover:bg-border/60 transition-colors cursor-col-resize shrink-0",
+              isDragging && "bg-accent/40"
+            )}
+          />
 
           {/* Right panel */}
           <div className="flex-1 flex flex-col overflow-hidden">
