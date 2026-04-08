@@ -1,10 +1,58 @@
 [
-  { "tier": 0, "light": "1d4",  "standard": "1d6",  "heavy": "1d8" },
-  { "tier": 1, "light": "1d6",  "standard": "1d8",  "heavy": "1d10" },
-  { "tier": 2, "light": "2d8",  "standard": "2d10", "heavy": "3d6+12" },
-  { "tier": 3, "light": "2d10", "standard": "3d8",  "heavy": "3d10" },
-  { "tier": 4, "light": "3d8",  "standard": "4d6",  "heavy": "4d8" },
-  { "tier": 5, "light": "4d8",  "standard": "4d10", "heavy": "5d8" },
-  { "tier": 6, "light": "5d8",  "standard": "5d10", "heavy": "6d8" },
-  { "tier": 7, "light": "6d10", "standard": "6d12", "heavy": "7d10" }
+  {
+    "tier": 0,
+    "light": "1d4",
+    "standard": "1d6",
+    "heavy": "1d8",
+    "dualtypes": "1d4 + 1d4"
+  },
+  {
+    "tier": 1,
+    "light": "1d6",
+    "standard": "1d8",
+    "heavy": "1d10",
+    "dualtypes": "1d6 + 1d4"
+  },
+  {
+    "tier": 2,
+    "light": "2d8",
+    "standard": "2d10",
+    "heavy": "3d6+12",
+    "dualtypes": "1d8 + 1d6"
+  },
+  {
+    "tier": 3,
+    "light": "2d10",
+    "standard": "3d8",
+    "heavy": "3d10",
+    "dualtypes": "1d10 + 1d8"
+  },
+  {
+    "tier": 4,
+    "light": "3d8",
+    "standard": "4d6",
+    "heavy": "4d8",
+    "dualtypes": "2d6 + 2d6"
+  },
+  {
+    "tier": 5,
+    "light": "4d8",
+    "standard": "4d10",
+    "heavy": "5d8",
+    "dualtypes": "2d8 + 2d8"
+  },
+  {
+    "tier": 6,
+    "light": "5d8",
+    "standard": "5d10",
+    "heavy": "6d8",
+    "dualtypes": "2d8 + 2d10"
+  },
+  {
+    "tier": 7,
+    "light": "6d10",
+    "standard": "6d12",
+    "heavy": "7d10",
+    "dualtypes": "3d10 + 2d10"
+  }
 ]
