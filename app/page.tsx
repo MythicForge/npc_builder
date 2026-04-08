@@ -5,6 +5,7 @@ import { BuilderForm } from "@/components/BuilderForm";
 import { NPCPreview } from "@/components/NPCPreview";
 import { MarkdownOutput } from "@/components/MarkdownOutput";
 import { JsonOutput } from "@/components/JsonOutput";
+import { EncountersTab } from "@/components/EncountersTab";
 import { buildNpc, type DataBundle } from "@/engine/buildNpc";
 import type { BuildConfig, NpcResult } from "@/types/npc";
 import type {
@@ -76,7 +77,7 @@ const DEFAULT_CONFIG: BuildConfig = {
   // ],
 };
 
-type Tab = "builder" | "markdown" | "json";
+type Tab = "builder" | "markdown" | "json" | "encounters";
 
 async function loadData(): Promise<DataBundle & { sizes: SizeData[] }> {
   const [
@@ -215,7 +216,7 @@ export default function NPCBuilderPage() {
 
       {/* ── Tab bar ───────────────────────────────────────────── */}
       <div className="flex bg-surface border-b border-border/30 px-4 gap-0.5 shrink-0">
-        {(["builder", "markdown", "json"] as Tab[]).map((t) => (
+        {(["builder", "markdown", "json", "encounters"] as Tab[]).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -290,6 +291,11 @@ export default function NPCBuilderPage() {
         <div className="flex-1 flex flex-col overflow-hidden">
           <JsonOutput npc={npc} />
         </div>
+      )}
+
+      {/* ── Encounters tab ────────────────────────────────────── */}
+      {tab === "encounters" && (
+        <EncountersTab />
       )}
     </div>
   );
