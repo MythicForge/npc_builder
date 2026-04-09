@@ -1,4 +1,8 @@
-import type { EncounterGroup, EncounterResult, Difficulty } from '@/types/encounter';
+import type {
+  EncounterGroup,
+  EncounterResult,
+  Difficulty,
+} from "@/types/encounter";
 
 /**
  * Calculate relative tier difference.
@@ -11,14 +15,16 @@ export function getRelativeTier(enemyTier: number, partyTier: number): number {
 /**
  * Get ADP multiplier from relative tier.
  * ADP = Adversarial Difficulty Points
+ * Scales aggressively at higher tier deltas to reflect exponential difficulty increase.
  */
 export function getAdpFromRelativeTier(delta: number): number {
   if (delta <= -2) return 0.5;
   if (delta === -1) return 1;
   if (delta === 0) return 2;
-  if (delta === 1) return 4;
-  if (delta === 2) return 8;
-  return 12; // delta >= 3
+  if (delta === 1) return 6; // +1 tier: Easy-Medium threat
+  if (delta === 2) return 16; // +2 tier: Hard threat
+  if (delta === 3) return 24; // +3 tier: Deadly threat
+  return 32; // delta >= 4: Overwhelming threat
 }
 
 /**
@@ -26,7 +32,7 @@ export function getAdpFromRelativeTier(delta: number): number {
  */
 export function getEncounterTotalAdp(
   partyTier: number,
-  groups: EncounterGroup[]
+  groups: EncounterGroup[],
 ): number {
   if (groups.length === 0) return 0;
 
@@ -42,20 +48,20 @@ export function getEncounterTotalAdp(
  */
 export function getEncounterDifficultyLabel(
   totalAdp: number,
-  playerCount: number
+  playerCount: number,
 ): Difficulty {
-  if (totalAdp <= 0) return 'None';
+  if (totalAdp <= 0) return "None";
 
-  const trivial = playerCount * 1.5;
-  const easy = playerCount * 3;
-  const medium = playerCount * 4;
-  const hard = playerCount * 5;
+  const trivial = playerCount * 0.7;
+  const easy = playerCount * 1.1;
+  const medium = playerCount * 3.6;
+  const hard = playerCount * 4.26;
 
-  if (totalAdp < trivial) return 'Trivial';
-  if (totalAdp < easy) return 'Easy';
-  if (totalAdp < medium) return 'Medium';
-  if (totalAdp < hard) return 'Hard';
-  return 'Deadly';
+  if (totalAdp < trivial) return "Trivial";
+  if (totalAdp < easy) return "Easy";
+  if (totalAdp < medium) return "Medium";
+  if (totalAdp < hard) return "Hard";
+  return "Deadly";
 }
 
 /**
@@ -63,12 +69,12 @@ export function getEncounterDifficultyLabel(
  */
 export function getDifficultyNotes(difficulty: Difficulty): string {
   const notes: Record<Difficulty, string> = {
-    None: 'No enemies added.',
-    Trivial: 'Very low threat.',
-    Easy: 'Light pressure.',
-    Medium: 'Standard encounter.',
-    Hard: 'High pressure.',
-    Deadly: 'Severe threat.',
+    None: "No enemies added.",
+    Trivial: "Very low threat.",
+    Easy: "Light pressure.",
+    Medium: "Standard encounter.",
+    Hard: "High pressure.",
+    Deadly: "Severe threat.",
   };
   return notes[difficulty];
 }
@@ -79,20 +85,22 @@ export function getDifficultyNotes(difficulty: Difficulty): string {
 export function getEncounterWarnings(
   partyTier: number,
   playerCount: number,
-  groups: EncounterGroup[]
+  groups: EncounterGroup[],
 ): string[] {
   const warnings: string[] = [];
 
   // No enemies
   if (groups.length === 0) {
-    warnings.push('No enemies added.');
+    warnings.push("No enemies added.");
     return warnings;
   }
 
   // High enemy count
   const totalEnemies = groups.reduce((sum, g) => sum + g.count, 0);
   if (totalEnemies > 8) {
-    warnings.push(`High enemy count (${totalEnemies} total). May be overwhelming.`);
+    warnings.push(
+      `High enemy count (${totalEnemies} total). May be overwhelming.`,
+    );
   }
 
   // Weak solo
@@ -101,14 +109,16 @@ export function getEncounterWarnings(
     const delta = getRelativeTier(group.tier, partyTier);
     const adp = getAdpFromRelativeTier(delta);
     if (adp * 1 < playerCount * 2) {
-      warnings.push('Solo enemy is very weak. May trivialize encounter.');
+      warnings.push("Solo enemy is very weak. May trivialize encounter.");
     }
   }
 
   // Tier spike
   for (const group of groups) {
     if (group.tier >= partyTier + 3) {
-      warnings.push(`Tier spike: enemy at T${group.tier} vs party T${partyTier}.`);
+      warnings.push(
+        `Tier spike: enemy at T${group.tier} vs party T${partyTier}.`,
+      );
       break;
     }
   }
@@ -122,7 +132,7 @@ export function getEncounterWarnings(
 export function computeEncounter(
   partyTier: number,
   playerCount: number,
-  groups: EncounterGroup[]
+  groups: EncounterGroup[],
 ): EncounterResult {
   const totalAdp = getEncounterTotalAdp(partyTier, groups);
   const enemyCount = groups.reduce((sum, g) => sum + g.count, 0);

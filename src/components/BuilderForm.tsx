@@ -1,9 +1,22 @@
-'use client';
+"use client";
 
-import { cn } from '@/lib/utils';
-import type { BuildConfig, Attack, Trait, AdversarialAction, SpellEntry } from '@/types/npc';
-import type { TierData, ChassisData, InhabitantData, OverlayData, SizeData, DamageProfileEntry } from '@/types/data';
-import { useState } from 'react';
+import { cn } from "@/lib/utils";
+import type {
+  BuildConfig,
+  Attack,
+  Trait,
+  AdversarialAction,
+  SpellEntry,
+} from "@/types/npc";
+import type {
+  TierData,
+  ChassisData,
+  InhabitantData,
+  OverlayData,
+  SizeData,
+  DamageProfileEntry,
+} from "@/types/data";
+import { useState } from "react";
 
 interface BuilderFormProps {
   config: BuildConfig;
@@ -32,16 +45,18 @@ function SectionHead({
       onClick={onToggle}
       className="flex items-center gap-2 w-full py-1.5 border-b border-border/30 mb-2 text-left"
     >
-      <span className={cn('w-2 h-2 rounded-full flex-shrink-0', color)} />
+      <span className={cn("w-2 h-2 rounded-full shrink-0", color)} />
       <span className="text-[11px] tracking-widest uppercase text-muted-foreground font-medium">
         {label}
       </span>
-      <span className="ml-auto text-[10px] text-muted-foreground">{open ? '▲' : '▼'}</span>
+      <span className="ml-auto text-[10px] text-muted-foreground">
+        {open ? "▲" : "▼"}
+      </span>
     </button>
   );
 }
 
-const RANGE_OPTIONS = ['Melee', 'Close', 'Nearby', 'Far'] as const;
+const RANGE_OPTIONS = ["Melee", "Close", "Nearby", "Far"] as const;
 
 export function BuilderForm({
   config,
@@ -74,20 +89,23 @@ export function BuilderForm({
   // Tier numbers available
   const tierNumbers = tiers.map((t) => t.tier).sort((a, b) => a - b);
 
-  const overlayData = overlays.find((o) => o.id === config.traitOverlay) ?? overlays[0];
+  const overlayData =
+    overlays.find((o) => o.id === config.traitOverlay) ?? overlays[0];
 
   // Attack management
   function addAttack() {
     const id = crypto.randomUUID();
     const tierProfile = damageProfiles.find((p) => p.tier === config.tier);
-    const defaultDamage = tierProfile ? `${tierProfile.standard} slashing` : '1d6 slashing';
+    const defaultDamage = tierProfile
+      ? `${tierProfile.standard} slashing`
+      : "1d6 slashing";
     const newAttack: Attack = {
       id,
-      name: 'New Attack',
+      name: "New Attack",
       attackBonus: config.tier + 2,
       damage: defaultDamage,
-      range: 'Melee',
-      notes: '',
+      range: "Melee",
+      notes: "",
     };
     update({ customAttacks: [...(config.customAttacks ?? []), newAttack] });
   }
@@ -106,7 +124,11 @@ export function BuilderForm({
 
   // Trait management
   function addTrait() {
-    const newTrait: Trait = { id: crypto.randomUUID(), name: 'New Trait', description: '' };
+    const newTrait: Trait = {
+      id: crypto.randomUUID(),
+      name: "New Trait",
+      description: "",
+    };
     update({ customTraits: [...(config.customTraits ?? []), newTrait] });
   }
 
@@ -126,11 +148,16 @@ export function BuilderForm({
   function addAdversarialAction() {
     const newAction: AdversarialAction = {
       id: crypto.randomUUID(),
-      name: 'New Action',
+      name: "New Action",
       cost: 2,
-      description: '',
+      description: "",
     };
-    update({ customAdversarialActions: [...(config.customAdversarialActions ?? []), newAction] });
+    update({
+      customAdversarialActions: [
+        ...(config.customAdversarialActions ?? []),
+        newAction,
+      ],
+    });
   }
 
   function updateAction(idx: number, partial: Partial<AdversarialAction>) {
@@ -147,7 +174,7 @@ export function BuilderForm({
 
   // Spell management
   function addSpell() {
-    const newSpell: SpellEntry = { id: crypto.randomUUID(), rank: 1, name: '' };
+    const newSpell: SpellEntry = { id: crypto.randomUUID(), rank: 1, name: "" };
     update({ spells: [...(config.spells ?? []), newSpell] });
   }
 
@@ -179,12 +206,14 @@ export function BuilderForm({
             color="bg-accent"
             label="Identity"
             open={openSections.identity}
-            onToggle={() => toggle('identity')}
+            onToggle={() => toggle("identity")}
           />
           {openSections.identity && (
             <div className="space-y-2">
               <div>
-                <label className="block text-[11px] text-muted-foreground mb-1">NPC Name</label>
+                <label className="block text-[11px] text-muted-foreground mb-1">
+                  NPC Name
+                </label>
                 <input
                   className="w-full bg-background border border-border/50 rounded px-2 py-1.5 text-[12px] text-foreground font-mono focus:outline-none focus:border-accent"
                   value={config.name}
@@ -194,7 +223,9 @@ export function BuilderForm({
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[11px] text-muted-foreground mb-1">Size</label>
+                  <label className="block text-[11px] text-muted-foreground mb-1">
+                    Size
+                  </label>
                   <select
                     className="w-full bg-background border border-border/50 rounded px-2 py-1.5 text-[12px] text-foreground font-mono focus:outline-none focus:border-accent appearance-none cursor-pointer"
                     value={config.size}
@@ -208,17 +239,19 @@ export function BuilderForm({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[11px] text-muted-foreground mb-1">Tier</label>
+                  <label className="block text-[11px] text-muted-foreground mb-1">
+                    Tier
+                  </label>
                   <div className="flex gap-1 flex-wrap">
                     {tierNumbers.map((t) => (
                       <button
                         key={t}
                         onClick={() => update({ tier: t })}
                         className={cn(
-                          'w-7 h-7 rounded-full border text-[11px] font-mono transition-all',
+                          "w-7 h-7 rounded-full border text-[11px] font-mono transition-all",
                           config.tier === t
-                            ? 'bg-accent border-accent-bright text-background font-medium'
-                            : 'bg-background border-border/50 text-muted-foreground hover:border-accent-bright hover:text-accent-bright'
+                            ? "bg-accent border-accent-bright text-background font-medium"
+                            : "bg-background border-border/50 text-muted-foreground hover:border-accent-bright hover:text-accent-bright",
                         )}
                       >
                         {t}
@@ -237,16 +270,20 @@ export function BuilderForm({
             color="bg-teal"
             label="Inhabitant Type"
             open={openSections.type}
-            onToggle={() => toggle('type')}
+            onToggle={() => toggle("type")}
           />
           {openSections.type && (
             <div className="space-y-2">
               <div>
-                <label className="block text-[11px] text-muted-foreground mb-1">Primary</label>
+                <label className="block text-[11px] text-muted-foreground mb-1">
+                  Primary
+                </label>
                 <select
                   className="w-full bg-background border border-border/50 rounded px-2 py-1.5 text-[12px] text-foreground font-mono focus:outline-none focus:border-teal appearance-none cursor-pointer"
                   value={config.inhabitantPrimary}
-                  onChange={(e) => update({ inhabitantPrimary: e.target.value })}
+                  onChange={(e) =>
+                    update({ inhabitantPrimary: e.target.value })
+                  }
                 >
                   {inhabitants.map((i) => (
                     <option key={i.id} value={i.name}>
@@ -257,13 +294,15 @@ export function BuilderForm({
               </div>
               <div>
                 <label className="block text-[11px] text-muted-foreground mb-1">
-                  Secondary{' '}
+                  Secondary{" "}
                   <span className="text-muted-foreground/60">(optional)</span>
                 </label>
                 <select
                   className="w-full bg-background border border-border/50 rounded px-2 py-1.5 text-[12px] text-foreground font-mono focus:outline-none focus:border-teal appearance-none cursor-pointer"
-                  value={config.inhabitantSecondary ?? ''}
-                  onChange={(e) => update({ inhabitantSecondary: e.target.value || undefined })}
+                  value={config.inhabitantSecondary ?? ""}
+                  onChange={(e) =>
+                    update({ inhabitantSecondary: e.target.value || undefined })
+                  }
                 >
                   <option value="">— none —</option>
                   {inhabitants.map((i) => (
@@ -283,22 +322,24 @@ export function BuilderForm({
             color="bg-red-500"
             label="Combat Role"
             open={openSections.role}
-            onToggle={() => toggle('role')}
+            onToggle={() => toggle("role")}
           />
           {openSections.role && (
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] text-muted-foreground mb-1.5">Chassis</label>
+                <label className="block text-[11px] text-muted-foreground mb-1.5">
+                  Chassis
+                </label>
                 <div className="grid grid-cols-3 gap-1.5">
                   {chassis.map((c) => (
                     <button
                       key={c.id}
                       onClick={() => update({ chassis: c.id })}
                       className={cn(
-                        'bg-background border rounded py-1.5 text-[11px] font-mono transition-all text-center',
+                        "bg-background border rounded py-1.5 text-[11px] font-mono transition-all text-center",
                         config.chassis === c.id
-                          ? 'border-blue-400 text-blue-300 bg-blue-900/20'
-                          : 'border-border/50 text-muted-foreground hover:border-blue-400 hover:text-blue-300'
+                          ? "border-blue-400 text-blue-300 bg-blue-900/20"
+                          : "border-border/50 text-muted-foreground hover:border-blue-400 hover:text-blue-300",
                       )}
                     >
                       {c.name}
@@ -317,21 +358,24 @@ export function BuilderForm({
                       key={o.id}
                       onClick={() =>
                         update({
-                          traitOverlay: o.id as BuildConfig['traitOverlay'],
-                          hordeSize: o.id !== 'horde' ? undefined : config.hordeSize ?? 3,
+                          traitOverlay: o.id as BuildConfig["traitOverlay"],
+                          hordeSize:
+                            o.id !== "horde"
+                              ? undefined
+                              : (config.hordeSize ?? 3),
                         })
                       }
                       className={cn(
-                        'border rounded-full px-3 py-1 text-[11px] font-mono transition-all',
+                        "border rounded-full px-3 py-1 text-[11px] font-mono transition-all",
                         config.traitOverlay === o.id
-                          ? o.id === 'elite'
-                            ? 'bg-yellow-900/20 border-yellow-400 text-yellow-300'
-                            : o.id === 'minion'
-                            ? 'bg-blue-900/20 border-blue-400 text-blue-300'
-                            : o.id === 'horde'
-                            ? 'bg-orange-900/20 border-orange-400 text-orange-300'
-                            : 'bg-surface border-border/60 text-foreground'
-                          : 'bg-background border-border/50 text-muted-foreground hover:border-border hover:text-foreground'
+                          ? o.id === "elite"
+                            ? "bg-yellow-900/20 border-yellow-400 text-yellow-300"
+                            : o.id === "minion"
+                              ? "bg-blue-900/20 border-blue-400 text-blue-300"
+                              : o.id === "horde"
+                                ? "bg-orange-900/20 border-orange-400 text-orange-300"
+                                : "bg-surface border-border/60 text-foreground"
+                          : "bg-background border-border/50 text-muted-foreground hover:border-border hover:text-foreground",
                       )}
                     >
                       {o.name}
@@ -344,13 +388,13 @@ export function BuilderForm({
         </div>
 
         {/* ── HORDE (conditional) ───────────────────────── */}
-        {config.traitOverlay === 'horde' && (
+        {config.traitOverlay === "horde" && (
           <div className="mb-3">
             <SectionHead
               color="bg-orange-400"
               label="Horde"
               open={openSections.horde}
-              onToggle={() => toggle('horde')}
+              onToggle={() => toggle("horde")}
             />
             {openSections.horde && (
               <div>
@@ -363,7 +407,9 @@ export function BuilderForm({
                   max={6}
                   className="w-full bg-background border border-border/50 rounded px-2 py-1.5 text-[12px] text-foreground font-mono focus:outline-none focus:border-orange-400"
                   value={config.hordeSize ?? 1}
-                  onChange={(e) => update({ hordeSize: parseInt(e.target.value, 10) })}
+                  onChange={(e) =>
+                    update({ hordeSize: parseInt(e.target.value, 10) })
+                  }
                 />
               </div>
             )}
@@ -376,26 +422,28 @@ export function BuilderForm({
             color="bg-purple-400"
             label="Casting"
             open={openSections.casting}
-            onToggle={() => toggle('casting')}
+            onToggle={() => toggle("casting")}
           />
           {openSections.casting && (
             <div className="space-y-2">
               <div className="flex gap-1.5">
-                {(['none', 'hybrid', 'full'] as const).map((mode) => (
+                {(["none", "hybrid", "full"] as const).map((mode) => (
                   <button
                     key={mode}
                     onClick={() =>
                       update({
                         castingMode: mode,
                         castingAttribute:
-                          mode !== 'none' ? (config.castingAttribute ?? 'will') : undefined,
+                          mode !== "none"
+                            ? (config.castingAttribute ?? "will")
+                            : undefined,
                       })
                     }
                     className={cn(
-                      'flex-1 border rounded py-1.5 text-[11px] font-mono text-center transition-all',
+                      "flex-1 border rounded py-1.5 text-[11px] font-mono text-center transition-all",
                       config.castingMode === mode
-                        ? 'bg-teal/10 border-teal text-teal'
-                        : 'bg-background border-border/50 text-muted-foreground hover:border-teal hover:text-teal'
+                        ? "bg-teal/10 border-teal text-teal"
+                        : "bg-background border-border/50 text-muted-foreground hover:border-teal hover:text-teal",
                     )}
                   >
                     {mode.charAt(0).toUpperCase() + mode.slice(1)}
@@ -403,17 +451,18 @@ export function BuilderForm({
                 ))}
               </div>
 
-              {config.castingMode !== 'none' && (
+              {config.castingMode !== "none" && (
                 <div>
                   <label className="block text-[11px] text-muted-foreground mb-1">
                     Casting Attribute
                   </label>
                   <select
                     className="w-full bg-background border border-border/50 rounded px-2 py-1.5 text-[12px] text-foreground font-mono focus:outline-none focus:border-teal appearance-none cursor-pointer"
-                    value={config.castingAttribute ?? 'will'}
+                    value={config.castingAttribute ?? "will"}
                     onChange={(e) =>
                       update({
-                        castingAttribute: e.target.value as BuildConfig['castingAttribute'],
+                        castingAttribute: e.target
+                          .value as BuildConfig["castingAttribute"],
                       })
                     }
                   >
@@ -433,7 +482,7 @@ export function BuilderForm({
             color="bg-yellow-400"
             label="Loadout"
             open={openSections.loadout}
-            onToggle={() => toggle('loadout')}
+            onToggle={() => toggle("loadout")}
           />
           {openSections.loadout && (
             <div className="space-y-4">
@@ -451,89 +500,117 @@ export function BuilderForm({
                   </button>
                 </div>
                 {(config.customAttacks ?? []).map((atk, idx) => {
-                  const tierProfile = damageProfiles.find((p) => p.tier === config.tier);
+                  const tierProfile = damageProfiles.find(
+                    (p) => p.tier === config.tier,
+                  );
                   const listId = `dmg-profiles-${atk.id}`;
                   return (
-                  <div
-                    key={atk.id}
-                    className="mb-2 p-2 bg-surface/50 border border-border/30 rounded space-y-1.5"
-                  >
-                    <div className="grid grid-cols-2 gap-1.5">
-                      <div>
-                        <label className="block text-[10px] text-muted-foreground mb-0.5">Name</label>
-                        <input
-                          className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
-                          value={atk.name}
-                          onChange={(e) => updateAttack(idx, { name: e.target.value })}
-                        />
+                    <div
+                      key={atk.id}
+                      className="mb-2 p-2 bg-surface/50 border border-border/30 rounded space-y-1.5"
+                    >
+                      <div className="grid grid-cols-2 gap-1.5">
+                        <div>
+                          <label className="block text-[10px] text-muted-foreground mb-0.5">
+                            Name
+                          </label>
+                          <input
+                            className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
+                            value={atk.name}
+                            onChange={(e) =>
+                              updateAttack(idx, { name: e.target.value })
+                            }
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] text-muted-foreground mb-0.5">
+                            Atk Bonus
+                          </label>
+                          <input
+                            type="number"
+                            className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
+                            value={atk.attackBonus}
+                            onChange={(e) =>
+                              updateAttack(idx, {
+                                attackBonus: parseInt(e.target.value, 10),
+                              })
+                            }
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <label className="block text-[10px] text-muted-foreground mb-0.5">Atk Bonus</label>
-                        <input
-                          type="number"
-                          className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
-                          value={atk.attackBonus}
-                          onChange={(e) => updateAttack(idx, { attackBonus: parseInt(e.target.value, 10) })}
-                        />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-3 gap-1.5">
-                      <div className="col-span-2">
-                        <label className="block text-[10px] text-muted-foreground mb-0.5">Damage</label>
-                        <input
-                          className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
-                          value={atk.damage}
-                          list={listId}
-                          onChange={(e) => updateAttack(idx, { damage: e.target.value })}
-                          placeholder="e.g. 1d8 slashing"
-                        />
-                        <datalist id={listId}>
+                      <div className="grid grid-cols-3 gap-1.5">
+                        <div className="col-span-2">
+                          <label className="block text-[10px] text-muted-foreground mb-0.5">
+                            Damage
+                          </label>
+                          <input
+                            className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
+                            value={atk.damage}
+                            list={listId}
+                            onChange={(e) =>
+                              updateAttack(idx, { damage: e.target.value })
+                            }
+                            placeholder="e.g. 1d8 slashing"
+                          />
+                          <datalist id={listId}>
+                            {tierProfile && (
+                              <>
+                                <option value={tierProfile.light} />
+                                <option value={tierProfile.standard} />
+                                <option value={tierProfile.heavy} />
+                                <option value={tierProfile.dualtypes} />
+                              </>
+                            )}
+                          </datalist>
                           {tierProfile && (
-                            <>
-                              <option value={tierProfile.light} />
-                              <option value={tierProfile.standard} />
-                              <option value={tierProfile.heavy} />
-                              <option value={tierProfile.dualtypes} />
-                            </>
+                            <p className="text-[9px] text-muted-foreground/60 mt-0.5 leading-tight">
+                              T{config.tier}: {tierProfile.light} ·{" "}
+                              {tierProfile.standard} · {tierProfile.heavy} ·{" "}
+                              {tierProfile.dualtypes}
+                            </p>
                           )}
-                        </datalist>
-                        {tierProfile && (
-                          <p className="text-[9px] text-muted-foreground/60 mt-0.5 leading-tight">
-                            T{config.tier}: {tierProfile.light} · {tierProfile.standard} · {tierProfile.heavy} · {tierProfile.dualtypes}
-                          </p>
-                        )}
+                        </div>
+                        <div>
+                          <label className="block text-[10px] text-muted-foreground mb-0.5">
+                            Range
+                          </label>
+                          <select
+                            className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent appearance-none cursor-pointer"
+                            value={atk.range}
+                            onChange={(e) =>
+                              updateAttack(idx, { range: e.target.value })
+                            }
+                          >
+                            {RANGE_OPTIONS.map((r) => (
+                              <option key={r} value={r}>
+                                {r}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
                       <div>
-                        <label className="block text-[10px] text-muted-foreground mb-0.5">Range</label>
-                        <select
-                          className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent appearance-none cursor-pointer"
-                          value={atk.range}
-                          onChange={(e) => updateAttack(idx, { range: e.target.value })}
-                        >
-                          {RANGE_OPTIONS.map((r) => (
-                            <option key={r} value={r}>{r}</option>
-                          ))}
-                        </select>
+                        <label className="block text-[10px] text-muted-foreground mb-0.5">
+                          Notes
+                        </label>
+                        <div className="flex gap-1">
+                          <input
+                            className="flex-1 bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
+                            value={atk.notes ?? ""}
+                            onChange={(e) =>
+                              updateAttack(idx, { notes: e.target.value })
+                            }
+                            placeholder="optional"
+                          />
+                          <button
+                            onClick={() => removeAttack(idx)}
+                            className="text-[11px] text-red-400 hover:text-red-300 border border-red-900/40 hover:border-red-400 rounded px-1.5 font-mono"
+                          >
+                            ✕
+                          </button>
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <label className="block text-[10px] text-muted-foreground mb-0.5">Notes</label>
-                      <div className="flex gap-1">
-                        <input
-                          className="flex-1 bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-accent"
-                          value={atk.notes ?? ''}
-                          onChange={(e) => updateAttack(idx, { notes: e.target.value })}
-                          placeholder="optional"
-                        />
-                        <button
-                          onClick={() => removeAttack(idx)}
-                          className="text-[11px] text-red-400 hover:text-red-300 border border-red-900/40 hover:border-red-400 rounded px-1.5 font-mono"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    </div>
-                  </div>
                   );
                 })}
               </div>
@@ -560,7 +637,9 @@ export function BuilderForm({
                       <input
                         className="flex-1 bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-teal"
                         value={trait.name}
-                        onChange={(e) => updateTrait(idx, { name: e.target.value })}
+                        onChange={(e) =>
+                          updateTrait(idx, { name: e.target.value })
+                        }
                         placeholder="Trait name"
                       />
                       <button
@@ -574,7 +653,9 @@ export function BuilderForm({
                       className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-teal resize-none"
                       rows={2}
                       value={trait.description}
-                      onChange={(e) => updateTrait(idx, { description: e.target.value })}
+                      onChange={(e) =>
+                        updateTrait(idx, { description: e.target.value })
+                      }
                       placeholder="Trait description..."
                     />
                   </div>
@@ -601,23 +682,33 @@ export function BuilderForm({
                   >
                     <div className="grid grid-cols-3 gap-1.5">
                       <div className="col-span-2">
-                        <label className="block text-[10px] text-muted-foreground mb-0.5">Name</label>
+                        <label className="block text-[10px] text-muted-foreground mb-0.5">
+                          Name
+                        </label>
                         <input
                           className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-purple-400"
                           value={action.name}
-                          onChange={(e) => updateAction(idx, { name: e.target.value })}
+                          onChange={(e) =>
+                            updateAction(idx, { name: e.target.value })
+                          }
                           placeholder="Action name"
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] text-muted-foreground mb-0.5">AP Cost</label>
+                        <label className="block text-[10px] text-muted-foreground mb-0.5">
+                          AP Cost
+                        </label>
                         <input
                           type="number"
                           min={1}
                           max={10}
                           className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-purple-400"
                           value={action.cost}
-                          onChange={(e) => updateAction(idx, { cost: parseInt(e.target.value, 10) })}
+                          onChange={(e) =>
+                            updateAction(idx, {
+                              cost: parseInt(e.target.value, 10),
+                            })
+                          }
                         />
                       </div>
                     </div>
@@ -626,7 +717,9 @@ export function BuilderForm({
                         className="flex-1 bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-purple-400 resize-none"
                         rows={2}
                         value={action.description}
-                        onChange={(e) => updateAction(idx, { description: e.target.value })}
+                        onChange={(e) =>
+                          updateAction(idx, { description: e.target.value })
+                        }
                         placeholder="Action description..."
                       />
                       <button
@@ -641,7 +734,7 @@ export function BuilderForm({
               </div>
 
               {/* Spells (if casting enabled) */}
-              {config.castingMode !== 'none' && (
+              {config.castingMode !== "none" && (
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[11px] text-muted-foreground uppercase tracking-wider">
@@ -661,23 +754,33 @@ export function BuilderForm({
                     >
                       <div className="grid grid-cols-3 gap-1.5">
                         <div>
-                          <label className="block text-[10px] text-muted-foreground mb-0.5">Rank</label>
+                          <label className="block text-[10px] text-muted-foreground mb-0.5">
+                            Rank
+                          </label>
                           <input
                             type="number"
                             min={0}
                             max={10}
                             className="w-full bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-teal"
                             value={spell.rank}
-                            onChange={(e) => updateSpell(idx, { rank: parseInt(e.target.value, 10) })}
+                            onChange={(e) =>
+                              updateSpell(idx, {
+                                rank: parseInt(e.target.value, 10),
+                              })
+                            }
                           />
                         </div>
                         <div className="col-span-2">
-                          <label className="block text-[10px] text-muted-foreground mb-0.5">Name</label>
+                          <label className="block text-[10px] text-muted-foreground mb-0.5">
+                            Name
+                          </label>
                           <div className="flex gap-1">
                             <input
                               className="flex-1 bg-background border border-border/40 rounded px-1.5 py-1 text-[11px] text-foreground font-mono focus:outline-none focus:border-teal"
                               value={spell.name}
-                              onChange={(e) => updateSpell(idx, { name: e.target.value })}
+                              onChange={(e) =>
+                                updateSpell(idx, { name: e.target.value })
+                              }
                               placeholder="Spell name"
                             />
                             <button
@@ -703,32 +806,36 @@ export function BuilderForm({
             color="bg-muted-foreground"
             label="Notes"
             open={openSections.notes}
-            onToggle={() => toggle('notes')}
+            onToggle={() => toggle("notes")}
           />
           {openSections.notes && (
             <div className="space-y-2">
               <div>
-                <label className="block text-[11px] text-muted-foreground mb-1">Flavor / Notes</label>
+                <label className="block text-[11px] text-muted-foreground mb-1">
+                  Flavor / Notes
+                </label>
                 <textarea
                   className="w-full bg-background border border-border/50 rounded px-2 py-1.5 text-[12px] text-foreground font-mono focus:outline-none focus:border-accent resize-none"
                   rows={3}
-                  value={config.notes ?? ''}
+                  value={config.notes ?? ""}
                   onChange={(e) => update({ notes: e.target.value })}
                   placeholder="Flavor text, encounter notes..."
                 />
               </div>
               <div>
                 <label className="block text-[11px] text-muted-foreground mb-1">
-                  Tags{' '}
-                  <span className="text-muted-foreground/60">(comma separated)</span>
+                  Tags{" "}
+                  <span className="text-muted-foreground/60">
+                    (comma separated)
+                  </span>
                 </label>
                 <input
                   className="w-full bg-background border border-border/50 rounded px-2 py-1.5 text-[12px] text-foreground font-mono focus:outline-none focus:border-accent"
-                  value={(config.tags ?? []).join(', ')}
+                  value={(config.tags ?? []).join(", ")}
                   onChange={(e) =>
                     update({
                       tags: e.target.value
-                        .split(',')
+                        .split(",")
                         .map((t) => t.trim())
                         .filter(Boolean),
                     })
